@@ -4,6 +4,7 @@ import { useReadableObjectMetadataItems } from '@/object-metadata/hooks/useReada
 import { useCreatePageLayoutFrontComponentWidget } from '@/page-layout/hooks/useCreatePageLayoutFrontComponentWidget';
 import { useCreatePageLayoutGraphWidget } from '@/page-layout/hooks/useCreatePageLayoutGraphWidget';
 import { useCreatePageLayoutIframeWidget } from '@/page-layout/hooks/useCreatePageLayoutIframeWidget';
+import { useCreatePageLayoutRecentInteractionsWidget } from '@/page-layout/hooks/useCreatePageLayoutRecentInteractionsWidget';
 import { useCreatePageLayoutRecordTableWidget } from '@/page-layout/hooks/useCreatePageLayoutRecordTableWidget';
 import { useCreatePageLayoutStandaloneRichTextWidget } from '@/page-layout/hooks/useCreatePageLayoutStandaloneRichTextWidget';
 import { useOpportunityDefaultChartConfig } from '@/page-layout/hooks/useOpportunityDefaultChartConfig';
@@ -31,6 +32,7 @@ import {
   IconApps,
   IconChartPie,
   IconFrame,
+  IconHistory,
   IconTable,
 } from 'twenty-ui/icon';
 import { type FrontComponent, WidgetType } from '~/generated-metadata/graphql';
@@ -73,6 +75,12 @@ export const SidePanelPageLayoutDashboardWidgetTypeSelect = () => {
 
   const { createPageLayoutFrontComponentWidget } =
     useCreatePageLayoutFrontComponentWidget({
+      pageLayoutId,
+      tabListInstanceId,
+    });
+
+  const { createPageLayoutRecentInteractionsWidget } =
+    useCreatePageLayoutRecentInteractionsWidget({
       pageLayoutId,
       tabListInstanceId,
     });
@@ -216,6 +224,24 @@ export const SidePanelPageLayoutDashboardWidgetTypeSelect = () => {
     });
   };
 
+  const handleCreateRecentInteractionsWidget = () => {
+    if (
+      isExistingWidgetMissingOrDifferentType(
+        existingWidget?.type,
+        WidgetType.RECENT_INTERACTIONS,
+      )
+    ) {
+      if (isDefined(pageLayoutEditingWidgetId)) {
+        removePageLayoutWidgetAndPreservePosition(pageLayoutEditingWidgetId);
+      }
+
+      const newWidget = createPageLayoutRecentInteractionsWidget();
+      setPageLayoutEditingWidgetId(newWidget.id);
+    }
+
+    closeSidePanelMenu();
+  };
+
   const handleCreateFrontComponentWidget = (frontComponent: FrontComponent) => {
     if (
       isExistingWidgetMissingOrDifferentType(
@@ -242,6 +268,7 @@ export const SidePanelPageLayoutDashboardWidgetTypeSelect = () => {
     'record-table',
     'iframe',
     'rich-text',
+    'recent-interactions',
     ...frontComponentsWithSelectItemId.map(({ selectItemId }) => selectItemId),
   ];
 
@@ -291,6 +318,18 @@ export const SidePanelPageLayoutDashboardWidgetTypeSelect = () => {
             label={t`Rich Text`}
             id="rich-text"
             onClick={handleNavigateToRichTextSettings}
+          />
+        </SelectableListItem>
+
+        <SelectableListItem
+          itemId="recent-interactions"
+          onEnter={handleCreateRecentInteractionsWidget}
+        >
+          <CommandMenuItem
+            Icon={IconHistory}
+            label={t`Recent Interactions`}
+            id="recent-interactions"
+            onClick={handleCreateRecentInteractionsWidget}
           />
         </SelectableListItem>
       </SidePanelGroup>

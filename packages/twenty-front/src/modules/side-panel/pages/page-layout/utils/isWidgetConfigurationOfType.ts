@@ -15,6 +15,7 @@ import {
   type MessageCampaignDetailsConfiguration,
   type NotesConfiguration,
   type PieChartConfiguration,
+  type RecentInteractionsConfiguration,
   type RecordTableConfiguration,
   type StandaloneRichTextConfiguration,
   type TasksConfiguration,
@@ -90,6 +91,12 @@ type WidgetConfigurationTypenameMap = {
   };
   NotesConfiguration: Omit<NotesConfiguration, 'configurationType'> & {
     configurationType: WidgetConfigurationType.NOTES;
+  };
+  RecentInteractionsConfiguration: Omit<
+    RecentInteractionsConfiguration,
+    'configurationType'
+  > & {
+    configurationType: WidgetConfigurationType.RECENT_INTERACTIONS;
   };
   PieChartConfiguration: Omit<PieChartConfiguration, 'configurationType'> & {
     configurationType: WidgetConfigurationType.PIE_CHART;

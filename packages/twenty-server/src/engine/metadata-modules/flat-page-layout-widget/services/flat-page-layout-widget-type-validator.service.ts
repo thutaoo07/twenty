@@ -101,6 +101,8 @@ export class FlatPageLayoutWidgetTypeValidatorService {
       MESSAGE_CAMPAIGN_DETAILS: validateSimpleRecordPageWidgetForCreation(
         WidgetConfigurationType.MESSAGE_CAMPAIGN_DETAILS,
       ),
+      // Standalone dashboard widget with no user-facing configuration to validate.
+      RECENT_INTERACTIONS: () => [],
     };
 
   private readonly PAGE_LAYOUT_WIDGET_TYPE_VALIDATOR_FOR_UPDATE_HASHMAP: FlatPageLayoutWidgetTypeValidatorForUpdate =
@@ -161,6 +163,7 @@ export class FlatPageLayoutWidgetTypeValidatorService {
       MESSAGE_CAMPAIGN_DETAILS: validateSimpleRecordPageWidgetForUpdate(
         WidgetConfigurationType.MESSAGE_CAMPAIGN_DETAILS,
       ),
+      RECENT_INTERACTIONS: () => [],
     };
 
   public validateFlatPageLayoutWidgetTypeSpecificitiesForCreation(

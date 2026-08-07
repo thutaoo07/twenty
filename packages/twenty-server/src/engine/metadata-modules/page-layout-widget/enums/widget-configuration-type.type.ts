@@ -29,6 +29,7 @@ export enum WidgetConfigurationType {
   EMAIL_THREAD = 'EMAIL_THREAD',
   MESSAGE_CAMPAIGN_BODY = 'MESSAGE_CAMPAIGN_BODY',
   MESSAGE_CAMPAIGN_DETAILS = 'MESSAGE_CAMPAIGN_DETAILS',
+  RECENT_INTERACTIONS = 'RECENT_INTERACTIONS',
 }
 export type AllGraphWidgetConfigurationType =
   | WidgetConfigurationType.AGGREGATE_CHART

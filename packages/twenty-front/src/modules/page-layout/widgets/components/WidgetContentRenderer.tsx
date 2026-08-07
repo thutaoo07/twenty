@@ -12,6 +12,7 @@ import { IframeWidget } from '@/page-layout/widgets/iframe/components/IframeWidg
 import { MessageCampaignBodyWidget } from '@/page-layout/widgets/message-campaign/components/MessageCampaignBodyWidget';
 import { MessageCampaignDetailsWidget } from '@/page-layout/widgets/message-campaign/components/MessageCampaignDetailsWidget';
 import { NoteWidget } from '@/page-layout/widgets/notes/components/NoteWidget';
+import { RecentInteractionsWidget } from '@/page-layout/widgets/recent-interactions/components/RecentInteractionsWidget';
 import { StandaloneRichTextWidgetRenderer } from '@/page-layout/widgets/standalone-rich-text/components/StandaloneRichTextWidgetRenderer';
 import { TaskWidget } from '@/page-layout/widgets/tasks/components/TaskWidget';
 import { TimelineWidget } from '@/page-layout/widgets/timeline/components/TimelineWidget';
@@ -49,6 +50,9 @@ export const WidgetContentRenderer = ({
 
     case WidgetType.NOTES:
       return <NoteWidget widget={widget} />;
+
+    case WidgetType.RECENT_INTERACTIONS:
+      return <RecentInteractionsWidget />;
 
     case WidgetType.FIELD_RICH_TEXT:
       return <FieldRichTextWidgetRenderer widget={widget} />;

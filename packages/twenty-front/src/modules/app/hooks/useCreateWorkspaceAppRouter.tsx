@@ -39,6 +39,14 @@ const RecordShowPage = lazy(() =>
   })),
 );
 
+const RecentInteractionsPage = lazy(() =>
+  import('~/pages/recent-interactions/RecentInteractionsPage').then(
+    (module) => ({
+      default: module.RecentInteractionsPage,
+    }),
+  ),
+);
+
 const SignInUp = lazy(() =>
   import('~/pages/auth/SignInUp').then((module) => ({
     default: module.SignInUp,
@@ -182,6 +190,14 @@ const createWorkspaceAppRouter = (
                 element={
                   <LazyRoute>
                     <StandalonePageLayoutPage />
+                  </LazyRoute>
+                }
+              />
+              <Route
+                path="/recent-interactions"
+                element={
+                  <LazyRoute>
+                    <RecentInteractionsPage />
                   </LazyRoute>
                 }
               />
