@@ -63,6 +63,11 @@ A new object with **Amount, Category, Date** and a relationship to **Company**, 
 - **GraphQL CRUD** (`createExpense` / `expenses`) — verified by creating "Q3 Cloud Hosting" ($125, linked to Housecall Pro) and reading it back with the relation.
 - **REST CRUD** (`/rest/expenses`, returns `{ data, totalCount, pageInfo }`).
 
+**Reproducible from code:** because a custom object is runtime metadata (not source), it wouldn't survive `database:reset` or come back on a fresh checkout. To fix that, there's an idempotent NestJS command that recreates it via the metadata services:
+- `packages/twenty-server/src/database/commands/seed-expense-object.command.ts` (registered in `database-command.module.ts`)
+- Run: `nx run twenty-server:command -- workspace:seed:expense-object`
+- It skips workspaces where `expense` already exists and creates it (object + fields + Company relation) where it doesn't — verified by creating it in the YCombinator workspace from scratch while skipping Apple.
+
 **Key lesson:** in Twenty you essentially never hand-write SQL migrations for objects — the framework generates the DDL and the API from metadata. (The classic TypeORM migration system is **frozen**; core-schema changes go through the upgrade-command system.)
 
 ---
